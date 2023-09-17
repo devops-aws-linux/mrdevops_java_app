@@ -5,8 +5,8 @@ pipeline{
         stage('message'){
             steps{
                 checkout(
-                    branch: 'main',
-                    url: 'https://github.com/devops-aws-linux/mrdevops_java_app.git'
+                    branch: "main",
+                    url: "https://github.com/devops-aws-linux/mrdevops_java_app.git"
                 )
             }
         }
