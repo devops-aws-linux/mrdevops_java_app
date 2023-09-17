@@ -4,7 +4,9 @@ pipeline{
     agent any
     stages{
         stage("Maven test"){
-           sh 'mvn --version' 
+            steps{
+                 sh 'mvn --version' 
+            }
         }
     }
 }
