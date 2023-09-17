@@ -1,8 +1,9 @@
 @Library('my-shared-library') _
+
 pipeline{
     agent any
     stages{
-        stage('message'){
+        stage("SCM Checkout"){
             steps{
                 checkout(
                     branch: "main",
