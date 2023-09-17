@@ -1,9 +1,13 @@
+@Library('mrdevps') _
 pipeline{
     agent any
     stages{
         stage('message'){
             steps{
-                sh 'echo "Hello World"'
+                checkout(
+                    branch: 'main',
+                    url: 'https://github.com/devops-aws-linux/mrdevops_java_app.git'
+                )
             }
         }
     }
