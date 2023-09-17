@@ -5,7 +5,7 @@ pipeline{
     stages{
         stage("SCM Checkout"){
             steps{
-                gitCheckout(branch: "main", url: "https://github.com/devops-aws-linux/mrdevops_java_app.git")
+                scmCheckout(branch: "main", url: "https://github.com/devops-aws-linux/mrdevops_java_app.git")
             }
         }
     }
