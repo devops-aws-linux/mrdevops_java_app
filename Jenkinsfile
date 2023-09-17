@@ -5,7 +5,10 @@ pipeline{
     stages{
         stage("Hello World"){
             steps{
-                helloWorld()
+               scmCheckout(
+                branch: 'main',
+                url: 'https://github.com/devops-aws-linux/mrdevops_java_app.git'
+               )
             }
         }
     }
