@@ -1,9 +1,9 @@
 pipeline{
     agent any
     stages{
-        stage('SCM Checkout'){
+        stage('message'){
             steps{
-                git branch: 'main', url: 'https://github.com/devops-aws-linux/mrdevops_java_app.git'
+                sh 'echo "Hello World"'
             }
         }
     }
