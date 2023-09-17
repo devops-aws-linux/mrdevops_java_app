@@ -3,9 +3,9 @@
 pipeline{
     agent any
     stages{
-        stage("SCM Checkout"){
+        stage("Hello World"){
             steps{
-                scmCheckout(branch: "main", url: "https://github.com/devops-aws-linux/mrdevops_java_app.git")
+                helloWorld()
             }
         }
     }
