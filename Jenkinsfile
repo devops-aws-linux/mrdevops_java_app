@@ -25,12 +25,14 @@ pipeline{
         stage('OWASP Dependency-Check Vulnerabilities') {
             when { expression { params.action == 'create' } }
             steps {
-                dependencyCheck additionalArguments: ''' 
-                -o './'
-                -s './'
-                -f 'ALL' 
-                --prettyPrint''', odcInstallation: 'DPC'
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                dpCheck(
+                    callDependencyCheck('DPC', '''
+                    -o './'
+                    -s './'
+                    -f 'ALL'
+                    --prettyPrint''', 
+                    'dependency-check-report.xml')
+                )
             }
         }
         stage('Maven Compile'){
