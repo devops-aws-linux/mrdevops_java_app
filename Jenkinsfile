@@ -22,8 +22,16 @@ pipeline{
                 )
             }
         }
-        stage('OWASP Dependency-Check Vulnerabilities') {
+        stage('Debug') {
             when { expression { params.action == 'create' } }
+            steps {
+                script {
+                    echo "PATH: ${env.PATH}"
+                }
+            }
+        }
+        stage('OWASP Dependency-Check Vulnerabilities') {
+            when { expression { params.action == 'delete' } }
             steps {
                 script{
                     dpCheck(
