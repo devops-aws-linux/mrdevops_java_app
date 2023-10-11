@@ -70,5 +70,14 @@ pipeline{
                 }
             }
         }
+        stage('Quality Gate'){
+            when { expression { params.action == 'create' } }
+            steps{
+                script{
+                    def credentialsId = 'sonarcred'
+                    staticCodeAnalysis(credentialsId)
+                }
+            }
+        }
     }
 }
