@@ -23,7 +23,7 @@ pipeline{
             }
         }
         stage('Debug') {
-            when { expression { params.action == 'delete' } }
+            when { expression { params.action == 'create' } }
             steps {
                 script {
                     echo "PATH: ${env.PATH}"
