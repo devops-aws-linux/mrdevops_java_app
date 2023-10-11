@@ -8,9 +8,13 @@ pipeline{
     options {
         buildDiscarder(logRotator(numToKeepStr: '2'))
     }
+    parameters{
+        choice(name: 'action', choices: 'create\ndelete', description: 'Choose Create/Destroy')
+    }
     
     stages{
         stage("SCM Checkout"){
+            when { expression {param.action == 'create'} }
             steps{
                 gitCheck(
                      branch: 'main',
@@ -19,16 +23,18 @@ pipeline{
             }
         }
         stage('OWASP Dependency-Check Vulnerabilities') {
-                steps {
-                    dependencyCheck additionalArguments: ''' 
-                    -o './'
-                    -s './'
-                    -f 'ALL' 
-                    --prettyPrint''', odcInstallation: 'DPC'
-                    dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-                 }
+            when { expression {param.action == 'create'} }
+            steps {
+                dependencyCheck additionalArguments: ''' 
+                -o './'
+                -s './'
+                -f 'ALL' 
+                --prettyPrint''', odcInstallation: 'DPC'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+            }
         }
         stage('Maven Compile'){
+            when { expression {param.action == 'create'} }
             steps{
                script{
                 mavenCompile()
@@ -36,6 +42,7 @@ pipeline{
             }
         }
         stage('Maven Integration Test'){
+            when { expression {param.action == 'create'} }
             steps{
                 script{
                     mavenIntegration()
@@ -44,6 +51,7 @@ pipeline{
 
         }
         stage('Maven Test'){
+            when { expression {param.action == 'create'} }
             steps{
                 script{
                     mavenTest()
