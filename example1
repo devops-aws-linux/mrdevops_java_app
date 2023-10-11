@@ -1,3 +1,4 @@
+@Library('java_shared') _
 pipeline{
     agent any
     tools {
