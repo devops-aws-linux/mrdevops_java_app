@@ -14,7 +14,7 @@ pipeline{
     
     stages{
         stage("SCM Checkout"){
-            when { expression {param.action == 'create'} }
+            when { expression { param.action == 'create' } }
             steps{
                 gitCheck(
                      branch: 'main',
@@ -23,7 +23,7 @@ pipeline{
             }
         }
         stage('OWASP Dependency-Check Vulnerabilities') {
-            when { expression {param.action == 'create'} }
+            when { expression { param.action == 'create' } }
             steps {
                 dependencyCheck additionalArguments: ''' 
                 -o './'
@@ -34,7 +34,7 @@ pipeline{
             }
         }
         stage('Maven Compile'){
-            when { expression {param.action == 'create'} }
+            when { expression { param.action == 'create' } }
             steps{
                script{
                 mavenCompile()
@@ -42,7 +42,7 @@ pipeline{
             }
         }
         stage('Maven Integration Test'){
-            when { expression {param.action == 'create'} }
+            when { expression { param.action == 'create' } }
             steps{
                 script{
                     mavenIntegration()
@@ -51,7 +51,7 @@ pipeline{
 
         }
         stage('Maven Test'){
-            when { expression {param.action == 'create'} }
+            when { expression { param.action == 'create' } }
             steps{
                 script{
                     mavenTest()
