@@ -1,0 +1,57 @@
+pipeline{
+    agent any
+    tools {
+        maven 'maven3'
+        jdk 'java17'
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '2'))
+    }
+    // environment {
+    //     SONAR_SCANNER_HOME = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+    // }
+    stages{
+        stage("SCM Checkout"){
+            steps{
+                git branch: 'main', url: 'https://github.com/devops-aws-linux/mrdevops_java_app.git'
+            }
+        }
+        stage('Maven Compile'){
+            steps{
+                sh 'mvn clean compile'
+            }
+        }
+        // stage('Maven package'){
+        //     steps{
+        //         sh 'mvn package -DskipTests=true'
+        //     }
+        // }
+        // stage('OWASP Dependency-Check Vulnerabilities') {
+        //         steps {
+        //             dependencyCheck additionalArguments: ''' 
+        //             -o './'
+        //             -s './'
+        //             -f 'ALL' 
+        //             --prettyPrint''', odcInstallation: 'DPC'
+        //             dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+        //          }
+        // }
+        // stage('CODE ANALYSIS with SONARQUBE') {
+        // steps {
+        //     withSonarQubeEnv('sonarqube-server') {
+        //        sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=HelloWorld \
+        //            -Dsonar.projectName=hello \
+        //            -Dsonar.projectVersion=1.0 \
+        //            -Dsonar.sources=src/ \
+        //            -Dsonar.java.binaries=target/test-classes/org/springframework/samples/petclinic \
+        //            -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
+        //     }
+
+        //     timeout(time: 10, unit: 'MINUTES') {
+        //        waitForQualityGate abortPipeline: true
+        //     }
+        //   }
+        // }
+
+    }
+}
