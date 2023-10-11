@@ -25,14 +25,16 @@ pipeline{
         stage('OWASP Dependency-Check Vulnerabilities') {
             when { expression { params.action == 'create' } }
             steps {
-                dpCheck(
+                script{
+                    dpCheck(
                     callDependencyCheck('DPC', '''
                     -o './'
                     -s './'
                     -f 'ALL'
                     --prettyPrint''', 
                     'dependency-check-report.xml')
-                )
+                     )
+                }
             }
         }
         stage('Maven Compile'){
