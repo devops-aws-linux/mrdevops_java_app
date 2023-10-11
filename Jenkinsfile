@@ -30,12 +30,16 @@ pipeline{
         }
         stage('Maven Compile'){
             steps{
-                sh 'mvn clean compile'
+               script{
+                mavenCompile()
+               }
             }
         }
         stage('Maven Test'){
             steps{
-                sh 'mvn test'
+                script{
+                    mavenTest()
+                }
             }
         }
     }
