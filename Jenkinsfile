@@ -65,7 +65,8 @@ pipeline{
             when { expression { params.action == 'create' } }
             steps{
                 script{
-                    staticCodeAnalysis()
+                    def credentialsId = 'sonarcred'
+                    staticCodeAnalysis(credentialsId)
                 }
             }
         }
