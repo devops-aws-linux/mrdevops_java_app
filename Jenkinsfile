@@ -14,6 +14,16 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/devops-aws-linux/mrdevops_java_app.git'
             }
         }
+        stage('OWASP Dependency-Check Vulnerabilities') {
+                steps {
+                    dependencyCheck additionalArguments: ''' 
+                    -o './'
+                    -s './'
+                    -f 'ALL' 
+                    --prettyPrint''', odcInstallation: 'DPC'
+                    dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                 }
+        }
         stage('Maven Compile'){
             steps{
                 sh 'mvn clean compile'
