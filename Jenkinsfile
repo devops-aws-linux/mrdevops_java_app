@@ -23,7 +23,7 @@ pipeline{
             }
         }
         stage('OWASP Dependency-Check Vulnerabilities') {
-            when { expression { param.action == 'create' } }
+            when { expression { params.action == 'create' } }
             steps {
                 dependencyCheck additionalArguments: ''' 
                 -o './'
@@ -34,7 +34,7 @@ pipeline{
             }
         }
         stage('Maven Compile'){
-            when { expression { param.action == 'create' } }
+            when { expression { params.action == 'create' } }
             steps{
                script{
                 mavenCompile()
@@ -42,7 +42,7 @@ pipeline{
             }
         }
         stage('Maven Integration Test'){
-            when { expression { param.action == 'create' } }
+            when { expression { params.action == 'create' } }
             steps{
                 script{
                     mavenIntegration()
