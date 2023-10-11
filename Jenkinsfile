@@ -14,7 +14,7 @@ pipeline{
     
     stages{
         stage("SCM Checkout"){
-            when { expression { params.action == 'delete' } }
+            when { expression { params.action == 'create' } }
             steps{
                 gitCheck(
                      branch: 'main',
@@ -23,7 +23,7 @@ pipeline{
             }
         }
         stage('Debug') {
-            when { expression { params.action == 'create' } }
+            when { expression { params.action == 'delete' } }
             steps {
                 script {
                     echo "PATH: ${env.PATH}"
@@ -45,7 +45,7 @@ pipeline{
             }
         }
         stage('Maven Compile'){
-            when { expression { params.action == 'delete' } }
+            when { expression { params.action == 'create' } }
             steps{
                script{
                 mavenCompile()
@@ -53,7 +53,7 @@ pipeline{
             }
         }
         stage('Maven Integration Test'){
-            when { expression { params.action == 'delete' } }
+            when { expression { params.action == 'create' } }
             steps{
                 script{
                     mavenIntegration()
@@ -62,7 +62,7 @@ pipeline{
 
         }
         stage('Maven Test'){
-            when { expression { params.action == 'delete' } }
+            when { expression { params.action == 'create' } }
             steps{
                 script{
                     mavenTest()
