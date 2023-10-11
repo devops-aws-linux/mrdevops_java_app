@@ -13,7 +13,7 @@ pipeline{
         stage("SCM Checkout"){
             steps{
                 gitCheck(
-                     branch: 'main'
+                     branch: 'main',
                      url: 'https://github.com/devops-aws-linux/mrdevops_java_app.git'
                 )
             }
