@@ -51,7 +51,7 @@ pipeline{
 
         }
         stage('Maven Test'){
-            when { expression { param.action == 'create' } }
+            when { expression { params.action == 'create' } }
             steps{
                 script{
                     mavenTest()
