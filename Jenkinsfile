@@ -27,13 +27,12 @@ pipeline{
             steps {
                 script{
                     dpCheck(
-                    callDependencyCheck('DPC', '''
+                    'DPC', '''
                     -o './'
                     -s './'
                     -f 'ALL'
                     --prettyPrint''', 
                     'dependency-check-report.xml')
-                     )
                 }
             }
         }
